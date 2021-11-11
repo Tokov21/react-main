@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 export default function Counter({ step: initialStep }) {
   const [counter, setCounter] = useState(0);
@@ -13,18 +13,18 @@ export default function Counter({ step: initialStep }) {
   const [autoStartOngoing, setAutoStartOngoing] = useState(false);
 
   //Смена отображения операции
-  const mathOperationIcon = mode ? "+" : "-";
+  const mathOperationIcon = useMemo(() => (mode ? "+" : "-"), [mode]);
 
-  const increment = () => {
+  const increment = useCallback(() => {
     setCounter((prevCounter) => prevCounter + Number(step));
-  };
+  }, [step]);
 
-  function decrement() {
+  const decrement = useCallback(() => {
     setCounter((prevCounter) => prevCounter - Number(step));
-  }
+  }, [step]);
 
   //Нажатие на кнопку выполнить
-  const autoOperation = () => {
+  const autoOperation = useCallback(() => {
     //Выставить оставшееся время в значение из поля, т.к. did mount ставит в 0
     setRemainingTime(Math.round(duration / 1000));
 
@@ -46,7 +46,7 @@ export default function Counter({ step: initialStep }) {
         setRemainingTime((prevState) => Math.round(prevState) - 1);
       }, 1000)
     );
-  };
+  }, [increment, decrement, tickTime, duration, mode]);
 
   //Останавить автосчётчик спустя duration
   useEffect(() => {
@@ -74,13 +74,13 @@ export default function Counter({ step: initialStep }) {
       clearInterval(autoStartIncrementId);
       setAutoStartOngoing(false);
       setDisabled(false);
-    }, duration+50);
+    }, duration + 50);
 
     return () => clearTimeout(autoStartTimeoutId);
   }, []);
 
   //Сброс
-  const reset = () => {
+  const reset = useCallback(() => {
     clearInterval(counterIntervalId);
     clearInterval(remainingIntervalId);
 
@@ -89,24 +89,38 @@ export default function Counter({ step: initialStep }) {
     setStep(initialStep);
     setTickTime(1000);
     setDuraiton(5000);
-  };
+  }, [counterIntervalId, remainingIntervalId, initialStep]);
 
-  const handleTickTime = ({ target: { value } }) => setTickTime(Number(value));
-  const handleDuration = ({ target: { value } }) => setDuraiton(Number(value));
-
-  const changeMathOperation = mode ? (
-    <button onClick={increment}>Добавить {step}</button>
-  ) : (
-    <button onClick={decrement}>Отнять {step}</button>
+  const handleTickTime = useCallback(
+    ({ target: { value } }) => setTickTime(Number(value)),
+    []
+  );
+  const handleDuration = useCallback(
+    ({ target: { value } }) => setDuraiton(Number(value)),
+    []
   );
 
-  const isStepMoreThanZero = step > 0 ? "Шаг:" : null;
+  const changeMathOperation = useMemo(
+    () =>
+      mode ? (
+        <button onClick={increment}>Добавить {step}</button>
+      ) : (
+        <button onClick={decrement}>Отнять {step}</button>
+      ),
+    [increment, decrement, mode, step]
+  );
 
-  const isStepVoid = step !== "" ? changeMathOperation : "<- Введите шаг";
+  const isStepMoreThanZero = useMemo(() => (step > 0 ? "Шаг:" : null), [step]);
 
-  const isRemainingTimeVisible = disabled
-    ? `Осталось ${remainingTime} с`
-    : null;
+  const isStepVoid = useMemo(
+    () => (step !== "" ? changeMathOperation : "<- Введите шаг"),
+    [step, changeMathOperation]
+  );
+
+  const isRemainingTimeVisible = useMemo(
+    () => (disabled ? `Осталось ${remainingTime} с` : null),
+    [disabled, remainingTime]
+  );
 
   return (
     <>
