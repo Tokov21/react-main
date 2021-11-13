@@ -6,6 +6,12 @@ export default function MainPage() {
     <nav>
       <ul>
         <li>
+          <Link to="/counter">Counter</Link>
+        </li>
+        <li>
+          <Link to="/slider">Slider</Link>
+        </li>
+        <li>
           <Link to="/signup">Sign Up</Link>
         </li>
       </ul>
