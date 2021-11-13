@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 
-export default function RegisterForm() {
+export default function SignupForm() {
   return (
     <Formik
       initialValues={{ name: "jared" }}
