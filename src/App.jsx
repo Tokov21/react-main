@@ -15,7 +15,7 @@ function App() {
         <Route exact path="/" element={<MainPage />} />
         <Route exact path="/counter" element={<CounterPage />} />
         <Route exact path="/slider" element={<SliderPage />} />
-        <Route exact path="/register" element={<SignupPage />} />
+        <Route exact path="/signup" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   );
