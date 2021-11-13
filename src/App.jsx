@@ -1,7 +1,9 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
+import CounterPage from "./pages/CounterPage";
+import SliderPage from "./pages/SliderPage";
 import SignupPage from "./pages/SignupPage";
 
 import "./App.css";
@@ -9,14 +11,12 @@ import "./App.css";
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <MainPage />
-        </Route>
-        <Route exact path="/register">
-          <SignupPage />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<MainPage />} />
+        <Route exact path="/counter" element={<CounterPage />} />
+        <Route exact path="/slider" element={<SliderPage />} />
+        <Route exact path="/register" element={<SignupPage />} />
+      </Routes>
     </BrowserRouter>
   );
 }
