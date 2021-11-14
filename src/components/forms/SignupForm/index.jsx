@@ -1,29 +1,24 @@
 import React from "react";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 
-export default function SignupForm() {
+import Input from "../Input";
+
+import { initialValues } from "../../../constants";
+import { SIGNUP_SCHEME } from "../../../validation/validationSchemes";
+
+export default function SignUpForm({ onSubmit }) {
   return (
     <Formik
-      initialValues={{ name: "jared" }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
-      }}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={SIGNUP_SCHEME}
     >
-      {(props) => (
-        <form onSubmit={props.handleSubmit}>
-          <input
-            type="text"
-            onChange={props.handleChange}
-            onBlur={props.handleBlur}
-            value={props.values.name}
-            name="name"
-          />
-          {props.errors.name && <div id="feedback">{props.errors.name}</div>}
+      {() => (
+        <Form>
+          <Input type="text" name="login" id="login" />
+
           <button type="submit">Submit</button>
-        </form>
+        </Form>
       )}
     </Formik>
   );
