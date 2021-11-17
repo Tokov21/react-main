@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import CounterPage from "./pages/CounterPage";
 import SliderPage from "./pages/SliderPage";
-import SignupPage from "./pages/SignupPage";
+import SignUpPage from "./pages/SignUpPage";
 import ChatPage from "./pages/ChatPage";
 
 import "./App.css";
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/" element={<MainPage />} />
         <Route exact path="/counter" element={<CounterPage />} />
         <Route exact path="/slider" element={<SliderPage />} />
-        <Route exact path="/signup" element={<SignupPage />} />
+        <Route exact path="/signup" element={<SignUpPage />} />
         <Route exact path="/chat" element={<ChatPage />} />
       </Routes>
     </BrowserRouter>
