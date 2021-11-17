@@ -1,11 +1,13 @@
 import React from "react";
 import { ErrorMessage, Field } from "formik";
 
-export default function Input({ id, name, ...props }) {
+export default function Input({ id, name, textBefore, textAfter, ...props }) {
   return (
     <label htmlFor={id}>
-      <Field name={name} {...props} />
+      {textBefore}
+      <Field name={name} id={id} {...props} />
       <ErrorMessage name={name} />
+      {textAfter}
     </label>
   );
 }
