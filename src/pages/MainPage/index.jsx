@@ -1,20 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
+import Navigation from "../../components/Navigation";
 
 export default function MainPage() {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/counter">Counter</Link>
-        </li>
-        <li>
-          <Link to="/slider">Slider</Link>
-        </li>
-        <li>
-          <Link to="/signup">Sign Up</Link>
-        </li>
-      </ul>
-    </nav>
-  );
+  return <Navigation />;
 }
