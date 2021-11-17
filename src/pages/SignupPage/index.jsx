@@ -2,14 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SignUpForm from "../../components/Forms/SignUpForm";
 
-export default function SignupPage() {
+export default function SignUpPage() {
   const onSubmit = (values, formikBag) => {
-    console.group();
-
     console.log(values);
-    console.log(formikBag);
-
-    console.groupEnd();
 
     formikBag.resetForm();
   };
