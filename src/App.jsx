@@ -7,7 +7,7 @@ import SliderPage from "./pages/SliderPage";
 import SignUpPage from "./pages/SignUpPage";
 import ChatPage from "./pages/ChatPage";
 
-import "./App.css";
+import "./App.sass";
 
 function App() {
   return (
