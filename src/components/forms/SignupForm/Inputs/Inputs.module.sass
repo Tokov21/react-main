@@ -1,0 +1,61 @@
+.wrapper
+  display: flex
+  flex-direction: column
+
+.container
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+
+  margin-bottom: 25px
+
+.label
+  display: flex
+  flex-direction: column
+  flex: 0 1 47%
+
+  padding: 15px 0
+
+  position: relative
+
+  div
+    width: max-content
+
+  input
+    border-radius: 3px
+    padding: 25px 20px
+
+    &::placeholder
+      font-size: 1rem
+
+.radioLabel
+  display: flex
+  align-items: baseline
+
+  border: 1px solid #fff
+  padding: 5px 10px 20px 10px
+
+  position: relative
+
+  div
+    span + p
+      margin: 0
+
+  p
+    margin: 0 0 0 10px
+    font-size: 0.9rem
+
+    &:first-child
+      font-size: 1.5rem
+
+  &:first-of-type
+    margin-bottom: 25px
+
+  + .radioLabel
+    margin-bottom: 20px
+
+.checkboxLabel
+  margin-bottom: 25px
+
+  text-align: center
+  font-size: .9rem
