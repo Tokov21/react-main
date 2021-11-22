@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { regExp } from "common/regex";
+import { regExp } from "common/regexes";
 
 const {
   firstname,
@@ -12,31 +12,75 @@ const {
     engUpperCase,
     engLowerCase,
     oneSpecCh,
-    onlyRussian,
+    onlyEnglish,
   },
+  onlyLetters,
 } = regExp;
 
 export const SIGNUP_SCHEME = yup.object().shape({
   firstname: yup
     .string()
-    .matches(
-      firstname,
-      "Start from an uppercase letter"
-    )
+    .min(3, "Minimum three characters")
+    .test({
+      name: "only-english-letters",
+      test: function (value) {
+        return onlyEnglish.test(value)
+          ? this.createError({
+              message: `Only English letters allowed`,
+              path: "firstname",
+            })
+          : true;
+      },
+    })
+    .test("only-letters", (value, { createError, path }) => {
+      return onlyLetters.test(value)
+        ? createError({
+            path,
+            message: "Only letters allowed",
+          })
+        : true;
+    })
+    .matches(firstname, "Start from an uppercase letter")
     .required("First name is required"),
   lastname: yup
     .string()
-    .matches(
-      lastname,
-      "Start from an uppercase letter"
-    )
+    .min(3, "Minimum three characters")
+    .test({
+      name: "only-english-letters",
+      test: function (value) {
+        return onlyEnglish.test(value)
+          ? this.createError({
+              message: `Only English letters allowed`,
+              path: "lastname",
+            })
+          : true;
+      },
+    })
+    .test("only-letters", (value, { createError, path }) => {
+      return onlyLetters.test(value)
+        ? createError({
+            path,
+            message: "Only letters allowed",
+          })
+        : true;
+    })
+    .matches(lastname, "Start from an uppercase letter")
     .required("Last name is required"),
   displayname: yup
     .string()
-    .matches(
-      displayname,
-      "Start from a letter and min 4 characters"
-    )
+    .test({
+      name: "only-english-letters",
+      test: function (value) {
+        return onlyEnglish.test(value)
+          ? this.createError({
+              message: `Only English letters allowed`,
+              path: "displayname",
+            })
+          : true;
+      },
+    })
+    .min(4, "Minimum four characters")
+    .matches(displayname, "Start from a letter")
     .required("Display name is required"),
   email: yup
     .string()
@@ -47,7 +91,7 @@ export const SIGNUP_SCHEME = yup.object().shape({
     .test({
       name: "test-password",
       test: function (value) {
-        return onlyRussian.test(value)
+        return onlyEnglish.test(value)
           ? this.createError({
               message: `Only English letters allowed`,
               path: "password",
